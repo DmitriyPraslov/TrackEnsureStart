@@ -1,0 +1,15 @@
+Ivan;A;A;1996-02-10;Street 2;1;Economy;1;105
+Pavel;B;C;1996-02-10;Street 5;3;Economy;1;105
+Dmitriy;G;S;1992-02-10;Street 27;13;Computer Science;4;415
+Irina;I;U;1995-02-10;Street 6;9;Politology;2;201
+Vitaliy;K;X;1994-02-10;Street 11;8;Politology;2;201
+Vitaliy;L;H;1997-02-10;Street 11;10;Politology;3;301
+Igor;M;W;1995-02-10;Street 2;4;Economy;2;205
+Andrey;O;C;1996-02-10;Street 5;6;Economy;2;205
+Jon;P;A;1996-02-10;Street 1;5;Economy;2;205
+Petr;P;B;1997-02-10;Street 1;2;Economy;1;105
+Olga;Q;G;1992-02-10;Street 12;12;Computer Science;4;415
+Alex;R;P;1995-02-10;Street 10;7;Politology;2;201
+Evgen;V;O;1993-02-10;Street 43;14;Computer Science;4;415
+Evgen;W;J;1991-02-10;Street 43;15;Computer Science;5;515
+Irina;Z;F;1996-02-10;Street 6;11;Politology;3;301
