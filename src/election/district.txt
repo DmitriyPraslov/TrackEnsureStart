@@ -1,0 +1,3 @@
+District 1;Speciality
+District 2;Quarantine
+District 3;Normal
