@@ -102,7 +102,7 @@ public class Main {
                     election.startElection();
                     break;
                 case 9 :
-                    System.out.println(election.getResultElection());
+                    System.out.println(election.getResultElectionWithStream());
                     election.showPercentElection();
                     break;
                 case 10 :

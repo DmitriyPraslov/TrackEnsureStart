@@ -1,4 +1,7 @@
-package election;
+package election.district;
+
+import election.citizen.Human;
+import election.Party;
 
 import java.util.*;
 

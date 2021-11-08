@@ -1,4 +1,7 @@
-package election;
+package election.citizen;
+
+import election.Election;
+import election.Party;
 
 import java.time.LocalDate;
 import java.util.Set;
@@ -15,7 +18,7 @@ public abstract class Human implements Comparable<Human>{
 
     public Human(String name, String bornDate){
         this.name = name;
-        this.bornDate = LocalDate.parse(bornDate,Election.DATE_TIME_FORMATTER);
+        this.bornDate = LocalDate.parse(bornDate, Election.DATE_TIME_FORMATTER);
         this.passportNumber = 0;
         this.innCode = 0;
         this.electionDistrictAttachNumber = 0;

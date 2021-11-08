@@ -1,6 +1,8 @@
-package election;
+package election.district;
 
-import java.time.LocalDate;
+import election.citizen.Human;
+import election.Party;
+
 import java.util.Map;
 import java.util.Set;
 

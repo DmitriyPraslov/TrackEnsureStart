@@ -1,6 +1,15 @@
 package election;
 
 
+import election.citizen.AdultCitizen;
+import election.citizen.Candidate;
+import election.citizen.Human;
+import election.citizen.YoungCitizen;
+import election.district.District;
+import election.district.ElectoralDistrict;
+import election.district.QuarantineElectoralDistrict;
+import election.district.SpecialityElectoralDistrict;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -39,7 +48,7 @@ public class Election {
     public void loadDistrictFromFile(){
         BufferedReader reader = null;
         try {
-            reader = Files.newBufferedReader(Paths.get("src\\election\\district.txt"), StandardCharsets.UTF_8);
+            reader = Files.newBufferedReader(Paths.get("src\\election\\ioDoc\\district.txt"), StandardCharsets.UTF_8);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -60,13 +69,13 @@ public class Election {
     }
 
     public void writeDistrictToFile(){
-        String path = "src\\election\\district.txt";
+        String path = "src\\election\\ioDoc\\district.txt";
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(path))) {
             for (District district : districtsList){
                 bw.write(district.getDistrictInfo() + '\n');
             }
             bw.flush();
-        }  catch (Exception e) {
+        }  catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -79,7 +88,7 @@ public class Election {
     public void loadCitizenFromFile(){
         BufferedReader reader = null;
         try {
-            reader = Files.newBufferedReader(Paths.get("src\\election\\citizens.txt"), StandardCharsets.UTF_8);
+            reader = Files.newBufferedReader(Paths.get("src\\election\\ioDoc\\citizens.txt"), StandardCharsets.UTF_8);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -103,13 +112,13 @@ public class Election {
     }
 
     public void writeCitizenToFile(){
-        String path = "src\\election\\citizens.txt";
+        String path = "src\\election\\ioDoc\\citizens.txt";
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(path))) {
             for (Human human : citizenList){
                 bw.write(human.getCitizenInfo() + '\n');
             }
             bw.flush();
-        }  catch (Exception e) {
+        }  catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -126,7 +135,7 @@ public class Election {
     public void loadPartyFromFile (){
         BufferedReader reader = null;
         try {
-            reader = Files.newBufferedReader(Paths.get("src\\election\\party.txt"), StandardCharsets.UTF_8);
+            reader = Files.newBufferedReader(Paths.get("src\\election\\ioDoc\\party.txt"), StandardCharsets.UTF_8);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -155,13 +164,13 @@ public class Election {
     }
 
     public void writePartyToFile(){
-        String path = "src\\election\\party.txt";
+        String path = "src\\election\\ioDoc\\party.txt";
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(path))) {
             for (Party party : partyList){
                 bw.write(party.getPartyInfo() + '\n');
             }
             bw.flush();
-        }  catch (Exception e) {
+        }  catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -190,7 +199,7 @@ public class Election {
 
     public void showCitizenOnDistrict(int districtNumber){
         for (District district : districtsList){
-            if (district.districtNumber==districtNumber){
+            if (district.getDistrictNumber()==districtNumber){
                 System.out.println(district.getElectorate());
             }
         }
@@ -198,7 +207,7 @@ public class Election {
 
     public void addCitizenToDistrict(Human citizen){
         for (District district : districtsList){
-            if (district.districtNumber==citizen.electionDistrictAttachNumber){
+            if (district.getDistrictNumber()==citizen.getElectionDistrictAttachNumber()){
                 district.addElector(citizen);
                 break;
             }
@@ -207,7 +216,7 @@ public class Election {
 
     public void removeCitizenToDistrict(AdultCitizen citizen){
         for (District district : districtsList){
-            if (district.districtNumber==citizen.electionDistrictAttachNumber){
+            if (district.getDistrictNumber()==citizen.getElectionDistrictAttachNumber()){
                 district.getElectorate().remove(citizen);
                 break;
             }
@@ -289,14 +298,25 @@ public class Election {
         return result;
     }
 
+    public Map<String,Integer> getResultElectionWithStream(){                           // with Stream
+        Map<String,Integer> resultElection = new TreeMap<>();
+        resultElection = districtsList.stream()
+                .map(District::getElectionResult)
+                .map(Map::entrySet)
+                .flatMap(Collection::stream)
+                .collect(Collectors.groupingBy(e->e.getKey().getPartyName(), Collectors.summingInt(Map.Entry::getValue)));
+        return resultElection;
+    }
+
+
 
     public void showPercentElection (){
         double result = 0;
         int countElectedCitizen = 0;
         int totalCountCitizenInDistrict = 0;
         for (District district : districtsList){
-            countElectedCitizen += district.countWhoWasElected;
-            totalCountCitizenInDistrict += district.electorate.size();
+            countElectedCitizen += district.getCountWhoWasElected();
+            totalCountCitizenInDistrict += district.getElectorate().size();
         }
         result = (double) countElectedCitizen/(totalCountCitizenInDistrict == 0 ? 1 : totalCountCitizenInDistrict);
         String formattedDouble = new DecimalFormat("#0.00").format(result*100);

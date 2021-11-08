@@ -1,4 +1,7 @@
-package election;
+package election.district;
+
+import election.citizen.Human;
+import election.Party;
 
 import java.time.LocalDate;
 import java.util.Map;
@@ -69,6 +72,10 @@ public abstract class District {
 
     public Set<Human> getElectorate() {
         return electorate;
+    }
+
+    public int getCountWhoWasElected() {
+        return countWhoWasElected;
     }
 
     @Override

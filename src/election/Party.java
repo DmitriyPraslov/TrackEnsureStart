@@ -1,5 +1,7 @@
 package election;
 
+import election.citizen.Candidate;
+
 import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.Set;
